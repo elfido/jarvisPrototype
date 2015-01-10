@@ -16,18 +16,10 @@ var views = [
 		{path: "/", html: "index"},
 		{path: "/encoder", html: "encoder"},
 		{path: "/mediacenter", html: "player"},
+		{path: "/movie", html: "movie"},
 		{path: "/settings", html: "settings"},
-	];
-
-var settings = {
-	monitorTimer: 3000,
-	dbSize: 3200,
-	rawVideo: '/home/fido/cloud/RawVideo',
-	qc: '/home/fido/cloud/mp4/',
-	//qc: '/home/dropbox/',
-	source: '/home/fido/cloud/Movies/Movies',
-	dest: '/home/fido/Dropbox/theFollowing'
-};
+	],
+	settings = JSON.parse(fs.readFileSync('/etc/jarvis.json', 'utf-8'));
 
 var queueDAS = new DAS("queue"),
 	filesDAS = new DAS("files"),
@@ -384,13 +376,15 @@ var encoder = {
 					size = item.size;
 				if (size < available){
 					console.log("Moving item:" + item.name);
-					fs.createReadStream(settings.source+item.name).pipe(fs.createWriteStream(settings.dest+item.name));
-					queueDAS.update(item._id, {status: "available"}, function(){
-						console.log("updated");
-					}, function(error){
-						console.dir(error);
-						console.log("error");
-					});
+					if (settings.env!="dev"){
+						fs.createReadStream(settings.source+item.name).pipe(fs.createWriteStream(settings.dest+item.name));
+						queueDAS.update(item._id, {status: "available"}, function(){
+							console.log("updated");
+						}, function(error){
+							console.dir(error);
+							console.log("error");
+						});
+					}			
 				}
 			}	
 		}, function(error){
@@ -415,6 +409,7 @@ var encoder = {
 		app.listen(appSettings.serverPort);
 		console.log("Encoder ready");
 		console.log("Server Port: "+appSettings.serverPort);
+		console.log("Environment: "+settings.env);
 	}
 }
 

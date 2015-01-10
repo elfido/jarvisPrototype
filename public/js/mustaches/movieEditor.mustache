@@ -1,19 +1,25 @@
-<h3>Title Editor</h3>
+<div class="col-xs-8">
+<h4>Movie Editor</h4>
 {{#movie}}
 <h5>{{fName}}</h5>
-<form class="form-horizontal">
-	<div class="control-group">
-<img src="{{poster}}"/><br/>
-<label>Title</label><input type="text" value="{{friendlyName}}" placeholder="Friendly Name"/><br/>
-<label>Poster</label><input type="text" value="{{poster}}" placeholder="Poster URL"/>
-<label>Runtime</label><input type="number" value="{{runtime}}" placeholder="Runtime"/><br/>
-<label>Raiting</label><input type="number" value="{{raiting}}" placeholder="Raiting"/><br/>
-<label>Description</label><input type="text" value="{{description}}" placeholder="Description"/><br/>
-<label>Clasification</label><select><option>Movie</option><option>TV Show</option><option>Music</option><option>Sports</option><option>Other</option></select><br/>
-<label>Language</label><select><option>English</option><option>Espanol</option></select><br/>
-<label>Genre</label><select><option>Action</option><option>Drama</option><option>Horror</option><option>Kids</option><option>Sci-Fi</option></select><br/>
-{{/movie}}
-<button class="btn btn-primary">Save</button> <button class="btn btn-cancel">Cancel</button>
+	<form role="form">
+		<div class="form-group">
+			<label for="friendlyName">Friendly Name</label><input class="form-control" id="friendlyName" type="text" value="{{friendlyName}}" placeholder="Friendly Name"/>
+			<label for="poster">Poster</label><input id="poster" class="form-control" type="text" value="{{poster}}" placeholder="Poster URL"/>
+			<label for="runtime">Runtime</label><input id="runtime" class="form-control" type="number" value="{{runtime}}" placeholder="Runtime"/><br/>
+			<label>Raiting</label><input id="raiting" class="form-control" type="number" value="{{raiting}}" placeholder="Raiting"/><br/>
+			<label>Description</label><input id="description" class="form-control" type="text" value="{{description}}" placeholder="Description"/><br/>
+			<label>Clasification</label><select id="clasification" class="form-control"><option>Movie</option><option>TV Show</option><option>Music</option><option>Sports</option><option>Other</option></select><br/>
+			<label>Language</label><select id="language" class="form-control"><option>English</option><option>Espanol</option></select><br/>
+			<label>Genre</label><select id="genre" class="form-control"><option>Action</option><option>Drama</option><option>Horror</option><option>Kids</option><option>Sci-Fi</option></select><br/>
+			<button class="btn btn-primary cmd-save">Save</button> <a class="btn btn-default" href="/mediacenter" class="btn btn-cancel">Cancel</a>
+		</div>
+	</form>
 </div>
-</form>
-<hr/>
+<div class="col-xs-1">
+	
+</div>
+<div class="col-xs-3">
+	<img src="{{poster}}"/>
+</div>
+{{/movie}}

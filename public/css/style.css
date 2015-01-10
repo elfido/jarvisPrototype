@@ -1,2 +1,3 @@
-.poster { float: left; margin-right: 20px; }
+.poster { float: left; margin-right: 20px; max-height: 160px;}
 .fido-row { margin-bottom: 5px; }
+.movieContainer {min-height: 170px;}

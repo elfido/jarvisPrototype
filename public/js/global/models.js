@@ -18,3 +18,9 @@ Models.QC = can.Model({
 Models.Media = can.Model({
     findAll: 'GET /fido/api/media'
 }, {});
+
+Models.Movies = can.Model({
+	id: '_id',
+	findOne: '/paos/api/files/{id}',
+	update: '/paos/api/files/{_id}'
+});
