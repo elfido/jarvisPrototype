@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+	<title>FIDO's Home</title>
+	<link href="css/style.css" rel="stylesheet"/>
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="bootstrap33/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="bootstrap33/js/bootstrap.min.js"></script>
+    <script src="js/underscore-min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse" role="navigation">
+  <div class="container-fluid">
+  	<div class="navbar-header">
+	  	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#fido-navbar">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">FIDO</a>
+	    </div>
+    	 <div class="collapse navbar-collapse" id="fido-navbar">
+      		<ul class="nav navbar-nav">
+      	   <li><a href="/" class="nav-cloud">Cloud</a></li>
+    	     <li><a href="encoder" class="nav-encoder">Encoder</a></li>
+    	     <li><a href="mediacenter" class="nav-qc">Media Center</a></li>
+    	     <li><a href="settings" class="nav-news">My News</a></li>
+      		</ul>
+      	</div>
+  	</div>
+  </div>
+</nav>
+<div class="container-fluid">
+{% block content %}{% endblock content %}
+</div>
+<script src="js/can/can.jquery.js"></script>
+<script src="js/global/models.js"></script>
+{% block footer %}{% endblock footer %}
+</body>
+</html>

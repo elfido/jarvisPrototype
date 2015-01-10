@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<link href="style.css" rel="stylesheet"/>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<body>
+	<div class="r">FScreen</div>
+	<input class="file-path" type="text" placeholder="Filename"/>
+	<input class="file-browser" type="file" placeholder="Filename"/>
+	<button class="play-text">Play Text</button><button class="play-fn">Play File</button>
+	<video id="myPlayer" class="video-player" controls fullscreen width="50%">
+		<!--<source src="porristas.webm" />-->
+		<!--<source src="z:/mp4/fooFighters1.webm" />-->
+	Video feature not supported :(
+	</video>
+	<script>
+	if ( document.webkitFullscreenEnabled || document.mozFullScreenEnabled ){
+		$(".r").html("supported");
+	} else
+		$(".r").html("unsoported");
+	$(document).ready(function(){
+		videoPlayer = document.getElementById("myPlayer");
+		$(".play-text").click(function(){
+			var player = $(".video-player");
+			var src = $(player).children()[0];
+			$(player).append('<source src="'+ $(".file-path").val() +'"/>');
+			//$(src).attr("src", $(".file-path").val() );
+			videoPlayer.play();
+		});
+		$(".play-fn").click(function(){
+			var player = $(".video-player");
+			var src = $(player).children()[0];
+			$(src).attr("src", $(".file-browser").val() );
+		});
+	});
+	</script>
+</body>
+</html>

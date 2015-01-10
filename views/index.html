@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+<head>
+	<title>FIDO's Home</title>
+	<link href="css/style.css" rel="stylesheet"/>
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/underscore-min.js"></script>
+</head>
+<body>
+<div class="navbar navbar-inverse">
+  <div class="navbar-inner">
+    <a class="brand" href="#">FIDO</a>
+    <ul class="nav">
+    	<li class="active"><a href="#">Cloud</a></li>
+    	<li><a href="encoder">Encoder</a></li>
+    	<li><a href="settings">My News</a></li><!-- Weather, sports, exchange -->
+    </ul>
+  </div>
+</div>
+<div class="container">
+<div class="row">
+<div class="span12">
+<ul class="nav nav-tabs" id="myTab">
+ <li class="active"><a href="#cloud" data-toggle="tab">Cloud Drive</a></li>
+  <li><a href="#available" data-toggle="tab">Dropbox</a></li>
+  <li><a href="#home" data-toggle="tab">Current Queue</a></li>
+  <li><a href="#files" data-toggle="tab">Queue Manager</a></li>
+  <li><a href="#info" data-toggle="tab">Edit</a></li>
+  <li><a href="#rotten" data-toggle="tab">Rotten Client</a></li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane active" id="cloud">
+	<div>
+		<label>Type:</label> <select><option>Movies</option></select>
+	</div>
+	<span class="cloud-list"></span>
+</div>
+<div class="tab-pane" id="available">files</div>
+<div class="tab-pane" id="home">
+  	<div class="statusTable">
+		...
+	</div>
+</div>
+  <div class="tab-pane" id="files">files</div>
+  <div class="tab-pane" id="info">
+  	<div class="title-editor">
+  		
+  	</div>
+  	<div class="edit-grid"></div>
+  </div>
+  <div class="tab-pane" id="rotten">
+  	<span class="file-id"></span>
+  	<form class="form-inline">
+  		<input type="search" class="form-control input-medium search-query rotten-search" placeholder="Movie title"/> <button class="btn btn-primary search-movie">Search</button>
+  	</form>
+  	<div class="rotten-results">
+  	</div>
+  </div>
+</div>
+	<div class="alert">
+	  
+	</div>
+</div>
+</div>
+</div>
+<script>
+	$(document).ready(function(){
+		$('#myTab a').click(function (e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+		});
+
+		
+
+		$(".cmd-encode").click(function(event){
+			event.preventDefault();
+			$.ajax({
+				url: '/encoder/api/encodestart',
+				success: function(){
+					console.log("Start encoding");
+				},
+				error: function(err){
+					alert("error");
+					console.dir(err);
+				}
+			});
+		});
+
+		setInterval(function(){
+			$.ajax({
+				url: '/paos/api/queue',
+				method: 'GET',
+				success: function(data){
+					var table = '<table class="table"><tr><th>File</th><th>Size</th><th>Actions</th></tr>';
+					$(data).each(function(){
+						table+='<tr><td>'+this.name+'</td><td>'+Math.floor(this.size / 1000000)+'</td><td></td></tr>';
+					});
+					table+="</table>";
+					$(".statusTable").html( table );
+				}
+			});
+		}, 5000);
+
+		$.ajax({
+			url: '/paos/api/dir',
+			method: 'GET',
+			success: function(data){
+				var table = '<table class="table"><tr><th>File</th><th>Size</th><th>Actions</th></tr>';
+				data = _(data).sortBy(function(item){
+					return( item.fName.toString().toLowerCase() );
+				});
+				for(item in data){
+					table+="<tr><td>"+data[item].fName+'</td><td>'+Math.floor(data[item].fSize / 1000000)+'</td><td><a data-size="'+data[item].fSize+'" data-name="'+data[item].fName+'" class="btn btn-primary addItem">Add</a></td></tr>';
+				}
+				table+='</table>';
+				$("#files").html(table);
+				$(".addItem").click(function(event){
+					var fn = $(this).data("name"),
+						fs = $(this).data("size"),
+						file = {
+							name: fn,
+							size: fs
+						};
+					$.ajax({
+						url: '/paos/api/queue',
+						method: 'post',
+						data: file,
+						success: function(data){
+							$(".alert").html('<button type="button" class="close" data-dismiss="alert">&times;</button> Added to queue');
+						},
+						error: function(error){
+							alert( JSON.stringify(file));
+						}
+					});
+				});
+			}
+		})
+		setInterval(function(){
+			$.ajax({
+				url: '/paos/api/queue/available',
+				success: function(data){
+					var tbl = '<table class="table"><tr><th>File</th></tr>';
+					for (item in data){
+						tbl+="<tr><td>"+data[item].name+"</td></tr>";
+					}
+					tbl+="</table>";
+					$("#available").html(tbl);
+				}
+			});
+		}, 5000);
+	});
+</script>
+<script src="js/can/can.jquery.js"></script>
+<script src="js/controls/main.js"></script>
+</body>
+</html>

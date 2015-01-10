@@ -1,0 +1,17 @@
+{% extends '_template.html' %}
+{% block content %}
+<div class="row">
+	<div class="col-xs-12">
+		<button class="btn btn-default" id="cmdStart">Connect to Chromecast</button>
+	</div>
+</div>
+<div class="video-list">
+
+</div>
+{% endblock content %}
+{% block footer %}
+<script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
+<script src="js/controls/mediacenter.js"></script>
+<script src="js/chromecast2.js"></script>
+<script src="js/media.js"></script>
+{% endblock footer %}

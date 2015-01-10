@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<body>
+Files:<br/>
+<video id="fidoPlayer" controls width="190" height="100">
+</video>
+<br/>
+<span class="directory"></span>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script>
+	videoPlayer = document.getElementById("fidoPlayer");
+	$(document).ready(function(){
+		$.ajax({
+			url: '/encoder/api/dir',
+			success: function(data){
+				$(data).each(function(){
+					$(".directory").append('<span class="fn">'+this+"</span><br/>");
+				});
+				$(".fn").click(handlePlay);
+			},
+			error: function(error){
+				$(".directory").html( JSON.stringify(error) );
+			}
+		});
+	});
+
+	handlePlay = function(){
+		var src = $(this).html();
+		src = "video/"+src;
+		$("#fidoPlayer").append('<source src="'+src+'"/>');
+		videoPlayer.play();
+	};
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<h3>Title Editor</h3>
+{{#movie}}
+<h5>{{fName}}</h5>
+<form class="form-horizontal">
+	<div class="control-group">
+<img src="{{poster}}"/><br/>
+<label>Title</label><input type="text" value="{{friendlyName}}" placeholder="Friendly Name"/><br/>
+<label>Poster</label><input type="text" value="{{poster}}" placeholder="Poster URL"/>
+<label>Runtime</label><input type="number" value="{{runtime}}" placeholder="Runtime"/><br/>
+<label>Raiting</label><input type="number" value="{{raiting}}" placeholder="Raiting"/><br/>
+<label>Description</label><input type="text" value="{{description}}" placeholder="Description"/><br/>
+<label>Clasification</label><select><option>Movie</option><option>TV Show</option><option>Music</option><option>Sports</option><option>Other</option></select><br/>
+<label>Language</label><select><option>English</option><option>Espanol</option></select><br/>
+<label>Genre</label><select><option>Action</option><option>Drama</option><option>Horror</option><option>Kids</option><option>Sci-Fi</option></select><br/>
+{{/movie}}
+<button class="btn btn-primary">Save</button> <button class="btn btn-cancel">Cancel</button>
+</div>
+</form>
+<hr/>

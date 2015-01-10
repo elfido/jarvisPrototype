@@ -1,0 +1,19 @@
+{{#movie}}
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<table>
+				<tr>
+					<td width="70px"><span class="poster"><img src="{{posters.original}}"></span></td>
+					<td>
+							<form class="form form-inline">
+							<h3><a class="rotten-info" data-name="{{title}}" data-description="{{synopsis}}" data-runtime="{{runtime}}" data-raitings="{{ratings.audience_score}}" data-poster="{{posters.original}}" href="#">{{title}}</a></h3>
+							<span class="label label-success">Raiting: {{ratings.audience_score}} | Runtime: {{runtime}}</span><br/>
+							{{synopsis}}
+						</form>
+					</td>
+				</tr>
+			</table>
+			<hr/>
+		</div>
+	</div>
+{{/movie}}

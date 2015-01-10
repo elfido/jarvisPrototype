@@ -1,0 +1,5 @@
+<table class="table"><tr><th>Poster</th><th>File</th><th>Friendly Name</th><th>Size</th><th>Actions</th></tr>
+{{#movies}}
+<tr class="dbitem" data-sid="{{_id}}"><td><img src="{{poster}}"/></td><td>{{fName}}</td><td>{{friendlyName}}</td><td>{{size}}</td><td><button data-id="{{_id}}" class="btn btn-primary edit-item">Edit</button> <button class="btn btn-success btn-rotten" data-name="{{fName}}" data-file="{{_id}}">Rotten</button></td></tr>
+{{/movies}}
+</table>

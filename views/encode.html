@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+	<link href="css/style.css" rel="stylesheet"/>
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+<div class="row">
+<div class="span12">
+<h1>Encoder</h1>
+<form class="form-horizontal">
+	<div class="control-group">
+		<label class="control-label">Source path:</label> <input name="source" type="text" placeholder="Full path" value="z:\RawVideo\"/><br/>
+		<label class="control-label">Destination path:</label> <input name="target" type="text" placeholder="Full path" value="z:\mp4\"/><br/>
+		<label class="control-label">Resolution:</label> <select name="resolution"><option value="720p">720p</option><option value="1080p">1080p	</option></select><br/>
+		<label class="control-label">Delete source:</label> <input name="delete" type="checkbox"/>
+	</div>
+	<button class="cmd-add btn btn-primary"><i class="icon-plus icon-white"></i> Add</button> <button class="cmd-encode btn btn-success"><i class="icon-play icon-white"></i> Start</button>
+</form>
+<br/>
+<ul class="nav nav-tabs" id="myTab">
+  <li class="active"><a href="#home" data-toggle="tab">Status</a></li>
+  <li><a href="#files" data-toggle="tab">Sources</a></li>
+</ul>
+<div class="tab-content">
+  <div class="tab-pane active" id="home">
+  	<div class="statusTable">
+		...
+	</div>
+  </div>
+  <div class="tab-pane" id="files">files</div>
+</div>
+
+</div>
+</div>
+</div>
+<script>
+	$(document).ready(function(){
+		$('#myTab a').click(function (e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+		})
+		$(".cmd-add").click(function(event){
+			event.preventDefault();
+			var service = "/encoder/api/encode?",
+			source = $('[name="source"]').val(),
+			target = $('[name="target"]').val(),
+			del = $('[name="delete"]').prop("checked"),
+			res = $('[name="resolution"]').val();
+			service += "s="+source+"&t="+target+"&d="+del+"&r="+res;
+			$.ajax({
+				url: service,
+				success: function(data){
+					console.dir(data);
+				},
+				error: function(error){
+					alert("error");
+					console.dir(error);
+				}
+			});
+		});
+
+		$(".cmd-encode").click(function(event){
+			event.preventDefault();
+			$.ajax({
+				url: '/encoder/api/encodestart',
+				success: function(){
+					console.log("Start encoding");
+				},
+				error: function(err){
+					alert("error");
+					console.dir(err);
+				}
+			});
+		});
+
+		setInterval(function(){
+			$.ajax({
+				url: '/encoder/api/encodestatus',
+				dataType: "json",
+				success: function(data){
+					var tbl = '<table class="table"><tr><th>id</th><th>Source</th><th>Target</th><th>Resolution</th><th>Delete</th><th>Last Size</th><th>isProcessing</th><th>Status</th></tr>';
+					for (item in data){
+						tbl+="<tr><td>"+data[item].id+"</td><td>"+data[item].source+"</td><td>"+data[item].target+"</td><td>"+data[item].resolution+"</td><td>"+data[item].allowDelete+"</td><td>"+Math.floor(data[item].lastSize / 1000000)+" mb</td><td>"+data[item].isProcessing+"</td><td>"+data[item].processed+"</td></tr>";
+					}
+					tbl+="</table>";
+					$(".statusTable").html(tbl);
+				}
+			});
+		}, 3000);
+	});
+</script>
+</body>
+</html>

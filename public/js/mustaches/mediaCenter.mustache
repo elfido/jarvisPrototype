@@ -1,0 +1,16 @@
+{{#files}}
+	<div class="row">
+		<div class="col-xs-1">
+			<img class="center-block" src="{{poster}}"/><br/>
+		</div>
+		<div class="col-xs-1">
+			
+		</div>
+		<div class="col-xs-10">
+			<h4>{{friendlyName}} {{language}} <span class="label label-primary">Duration: {{runtime}} | Raiting: {{raiting}}</span></h4>
+			{{fName}}<br/>
+			<button class="btn btn-primary">Play</button> <button class="btn btn-warning cmdPlayVideo" data-video={{fName}}>Cast!</button><br/>
+			{{description}}<hr/>
+		</div>
+	</div>
+{{/files}}
