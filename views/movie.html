@@ -1,0 +1,26 @@
+{% extends '_template.html' %}
+{% block content %}
+Search info at <a href="http://www.themoviedb.org" target="_blank"/>The Movie DB</a>
+<div class="row">
+	<div class="col-md-7">
+		<div class="movie">
+			<button class="btn btn-default" id="cmdStart">Connect to Chromecast</button>
+		</div>
+	</div>
+	<div class="col-md-5 search">
+		<form class="form-inline">
+			<label>Search</label><br/><input type="search" class="form-control movie-search-name" name="movie-name-search" placeholder="Enter a title for movie or tv show"/>
+			<select class="form-control search-type"><option value="movie">Movie</option><option value="tv">TV Show</option></select>
+			<button class="btn cmd-search-title">Search</button>
+		</form>
+		<div class="search-results">
+		</div>
+	</div>
+</div>
+{% endblock content %}
+{% block footer %}
+<script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>	
+<script src="js/controls/movie.js"></script>
+<script src="js/chromecast2.js"></script>
+<script src="js/media.js"></script>
+{% endblock footer %}
