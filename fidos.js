@@ -149,8 +149,9 @@ var encoder = {
 			delete obj._id;
 			filesDAS.updateFull(_id, obj, function(err,item){
 				res.send(obj);
-			}, function(){
-
+			}, function(error){
+				console.dir(error);
+				res.send(error);
 			});
 		});
 

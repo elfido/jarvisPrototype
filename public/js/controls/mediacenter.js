@@ -5,7 +5,9 @@ MediaCenter = can.Control.extend({
 	loadCloud: function(){
 		var _this = this;
 		Models.Media.findAll({}, function(files){
+			console.dir(files);
 			files = _(files).sortBy(function(item){
+				console.log(item.friendlyName + item.fName);
 				if (item.friendlyName.length>0)
 					return(item.friendlyName.toLowerCase());
 				else

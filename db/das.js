@@ -106,6 +106,8 @@ DAS.prototype.update = function(id, item, callback, errorCallback){
 	if (this.DASConfig.collection!=null){
 		this.db.collection(this.DASConfig.collection, function(err, collection){
 			if (err){
+				console.log('error:');
+				console.dir(error);
 				if (typeof errorCallback != 'undefined')
 					errorCallback(err);
 			} else{
@@ -117,8 +119,6 @@ DAS.prototype.update = function(id, item, callback, errorCallback){
 							if (typeof errorCallback != 'undefined')
 								errorCallback(err);
 						}
-						console.log(id);
-						console.dir(item);	
 						callback(err, item);
 					});
 				} catch(ex){

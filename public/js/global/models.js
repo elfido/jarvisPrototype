@@ -20,7 +20,7 @@ Models.Media = can.Model({
 }, {});
 
 Models.Movies = can.Model({
-	id: '_id',
+	id: 'id',
 	findOne: '/paos/api/files/{id}',
-	update: '/paos/api/files/{_id}'
+	update: '/paos/api/files/{id}'
 });
