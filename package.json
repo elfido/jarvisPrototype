@@ -1,0 +1,24 @@
+{
+  "name": "Paos",
+  "version": "1.0.0",
+  "description": "Dropbox File Queue Manager",
+  "main": "paos.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "paola"
+  ],
+  "author": "Fido",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.9.3",
+    "express": "^4.10.4",
+    "mongo": "^0.1.0",
+    "mongodb": "^1.4.22",
+    "morgan": "^1.5.0",
+    "node-rest-client": "^1.4.1",
+    "swig": "^1.4.2",
+    "underscore": "^1.7.0"
+  }
+}
