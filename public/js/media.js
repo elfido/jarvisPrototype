@@ -1,6 +1,7 @@
 var app = {
 	s: {
-		messageContainer: "#messageContainer"
+		messageContainer: "#messageContainer",
+		server: "http://192.168.1.14:9000/"
 	},
 	session: null,
 	log: function(msg){
@@ -37,8 +38,18 @@ var app = {
 	},
 	loadVideo: function(video){
 		app.loadResource("video/mp4",video);
+	},
+	startEventHandler: function(){
+		$(".cmdPlayVideo").click(function(){
+			//app.loadVideo("file:///Volumes/Paola/Peliculas/Free.Birds.2013.720p.BluRay.x264.YIFY.mp4");
+			var video = app.s.server + $(this).data('video');
+			app.loadVideo(video);
+			//app.loadVideo("http://techslides.com/demos/sample-videos/small.mp4");
+		});
 	}
 };
+
+setTimeout( app.startEventHandler, 5000);
 
 $("#cmdStart").click(function(){
 	console.log("try");
@@ -47,13 +58,6 @@ $("#cmdStart").click(function(){
 	} else{
 		app.log("Not yet");
 	}
-});
-
-$(".cmdPlayVideo").click(function(){
-	//app.loadVideo("file:///Volumes/Paola/Peliculas/Free.Birds.2013.720p.BluRay.x264.YIFY.mp4");
-	var video = $(this).data('video');
-	app.loadVideo(video);
-	//app.loadVideo("http://techslides.com/demos/sample-videos/small.mp4");
 });
 
 $("#cmdLoadPicture").click(function(){
